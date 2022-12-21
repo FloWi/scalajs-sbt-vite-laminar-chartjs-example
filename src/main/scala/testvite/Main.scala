@@ -27,7 +27,7 @@ object Main {
 
   def appElement(): HtmlElement = {
     div(
-      h1("Hello Vite!"),
+      h1(s"${World.greeting}"),
       renderDataTable(),
       ul(
         li("Sum of values: ", child.text <-- allValues.map(_.sum)),
