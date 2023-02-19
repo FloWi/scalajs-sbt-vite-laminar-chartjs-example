@@ -2,10 +2,11 @@ package testvite
 
 import scala.scalajs.js
 import scala.scalajs.js.JSConverters.*
-
 import com.raquo.laminar.api.L.{*, given}
-
 import org.scalajs.dom
+import typings.automergeAutomerge.{mod => Automerge}
+import typings.automergeAutomerge.typesMod.Doc
+import typings.std.global.JSON
 
 object Main {
   final class DataItemID
@@ -21,20 +22,23 @@ object Main {
   val allValues = dataSignal.map(_.map(_.value))
 
   def main(args: Array[String]): Unit = {
-
-    org.scalajs.dom.console.log("^", typings.automergeAutomerge.mod.^)
-
-    val doc = typings.automergeAutomerge.mod.init[String]()
-    org.scalajs.dom.console.log("doc", doc)
-
     // Laminar initialization
-    renderOnDomContentLoaded(dom.document.querySelector("#app"), appElement())
+    org.scalajs.dom.console.log("^", Automerge.^)
+    val doc: Doc[String] = Automerge.from("Hello, World")
+    org.scalajs.dom.console.log("doc", doc)
+    org.scalajs.dom.console.log("docJSON", JSON.stringify(doc))
+    render(dom.document.querySelector("#app"), appElement(doc))
   }
 
-  def appElement(): HtmlElement = {
+  def appElement(doc: Doc[String]): HtmlElement = {
     div(
       h1(s"${World.greeting}"),
-      renderDataTable(),
+      h2(s"Automerge doc"),
+      h3(s"Content"),
+      pre(JSON.stringify(doc)),
+
+      h2("other stuff"),
+        renderDataTable(),
       ul(
         li("Sum of values: ", child.text <-- allValues.map(_.sum)),
         li("Average value: ", child.text <-- allValues.map(vs => vs.sum / vs.size)),
