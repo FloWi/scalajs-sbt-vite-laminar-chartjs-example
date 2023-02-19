@@ -26,6 +26,10 @@ lazy val `test-vite` = project
       "com.raquo" %%% "laminar" % "0.14.2",
     ),
 
+    stIgnore ++= List(
+      "swc"
+    ),
+
     publicDev := linkerOutputDirectory((Compile / fastLinkJS).value).getAbsolutePath(),
     publicProd := linkerOutputDirectory((Compile / fullLinkJS).value).getAbsolutePath(),
   )

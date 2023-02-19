@@ -21,6 +21,12 @@ object Main {
   val allValues = dataSignal.map(_.map(_.value))
 
   def main(args: Array[String]): Unit = {
+
+    org.scalajs.dom.console.log("^", typings.automergeAutomerge.mod.^)
+
+    val doc = typings.automergeAutomerge.mod.init[String]()
+    org.scalajs.dom.console.log("doc", doc)
+
     // Laminar initialization
     renderOnDomContentLoaded(dom.document.querySelector("#app"), appElement())
   }
